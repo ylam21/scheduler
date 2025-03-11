@@ -4,9 +4,20 @@
 #define ROW 4
 #define COL 2
 
+int is_dupl(int matrix[ROW][COL], int r_pos, int c_pos, int n) {
+	int i = 0;
+	while (i < c_pos) {
+		if (n == matrix[r_pos][i])
+			return 1;
+		i++;
+	}
+	return 0;
+}
+
+
 int is_ok(int matrix[ROW][COL],int r_pos, int c_pos, int n) {
 	//check appearance
-	//check repetition, duplicates
+	//check repetition, duplicates DONE
 	//check if avail
 }
 
