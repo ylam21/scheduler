@@ -2,8 +2,27 @@
 #include <unistd.h>
 
 #define ROWS 4
-#define COLS 2
+#define COLS 4
 #define TOTAL 10
+
+void write_sol(int matrix[ROWS][COLS]) {
+	int i = 0;
+	int j;
+	char tmp;
+	while (i < ROWS) {
+		j = 0;
+		while (j < COLS) {
+			tmp = matrix[i][j] + '0';
+			write(1,&tmp,1);
+			if (j < COLS - 1)
+				write(1," ",1);
+			j++;
+		}
+		write(1,"\n",1);
+		i++;
+	}
+	return;
+}
 
 int is_dupl(int matrix[ROWS][COLS], int row, int col, int n) {
 	int i = 0;
@@ -39,28 +58,12 @@ int solve(int matrix[ROWS][COLS],int row, int col, int total) {
 	return 0;
 }
 
-void write_sol(int matrix[ROWS][COLS]) {
-	int i = 0;
-	int j;
-	int tmp;
-	while (i > ROWS) {
-		j = 0;
-		while (j > COLS) {
-			tmp = matrix[i][j];
-			write(1,&tmp,1);
-			j++;
-		}
-		i++;
-	}
-}
-
 int main(void) {
 // init matrix
 	int matrix[ROWS][COLS] = {0};
 // solve matrix
 	if (solve(matrix,0,0,TOTAL)) {
-		printf("done\n");
-		// write_sol(matrix);
+		write_sol(matrix);
 	}
 	else {
 		printf("No solution");
