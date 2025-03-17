@@ -4,6 +4,7 @@
 #define ROWS 4
 #define COLS 4
 #define TOTAL 10
+//TODO: handle TOTAL > 10
 
 void write_sol(int matrix[ROWS][COLS]) {
 	int i = 0;
@@ -34,22 +35,43 @@ int is_dupl(int matrix[ROWS][COLS], int row, int col, int n) {
 	return 0;
 }
 
+int count_num(int matrix[ROWS][COLS],int row, int col, int n) {
+	int i = 0;
+	int j;
+	int count = 0;
+	while (i <= row) {
+		j = 0;
+		while (j < COLS) {
+			if (n == matrix[i][j])
+			count++;
+			if (i == row && j == col)
+				return count;
+			j++;
+		}
+		i++;
+	}
+}
 
-int is_ok(int matrix[ROWS][COLS],int row, int col, int num) {
-	//check appearance
-	//check repetition, duplicates DONE
+
+int is_ok(int matrix[ROWS][COLS],int row, int col) {
+	int last = matrix[row][col];
 	//check if avail
+	int limit = 1;
+	if (is_dupl(matrix,row,col,last))
+		return 0;
+	if (count_num(matrix, row, col, last) > limit)
+		return 0;
 	return 1;
 }
 
-int solve(int matrix[ROWS][COLS],int row, int col, int total) {
+int solve(int matrix[ROWS][COLS],int row, int col) {
 	if (row == ROWS)
 		return 1;
 	int i = 0;
-	while (i < total) {
+	while (i < TOTAL) {
 		matrix[row][col] = i;
-		if (is_ok(matrix, row, col, i)) {
-			if (solve(matrix,row + (col == COLS - 1),(col + 1) % COLS,total))
+		if (is_ok(matrix, row, col)) {
+			if (solve(matrix,row + (col == COLS - 1),(col + 1) % COLS))
 				return 1;
 		}
 		else
@@ -59,15 +81,10 @@ int solve(int matrix[ROWS][COLS],int row, int col, int total) {
 }
 
 int main(void) {
-// init matrix
 	int matrix[ROWS][COLS] = {0};
-// solve matrix
-	if (solve(matrix,0,0,TOTAL)) {
+	if (solve(matrix,0,0))
 		write_sol(matrix);
-	}
-	else {
+	else
 		printf("No solution");
-	}
-
 	return 0;
 }

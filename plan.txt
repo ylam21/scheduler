@@ -12,9 +12,10 @@ Conditions and functionality
 WHAT IS NEEDED
 	count user in columns and rows;
 	if user in row/col > 1 return 0;
-	
+
 
 TO THINK ABOUT
 	data stored in JSON file?
 	Frontend? GTK?
+
 
