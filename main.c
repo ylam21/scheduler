@@ -1,11 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-
-#define ROWS 4
-#define COLS 4
-#define TOTAL 10
-//TODO: handle error input of TOTAL
-//TODO: handle TOTAL > 10
+#include "config.h"
 
 void write_sol(int matrix[ROWS][COLS]) {
 	int i = 0;
@@ -51,14 +46,32 @@ int count_num(int matrix[ROWS][COLS],int row, int col, int n) {
 		}
 		i++;
 	}
+	return count;
+}
+
+int get_pos(int row, int col) {
+	int mod_row = row + 1;
+	int mod_col = col + 1;
+	return ((mod_row * COLS) - (COLS - mod_col));
+}
+
+int isnt_avail(int row, int col, int user_id) {
+	int pos = get_pos(row,col);
+	int i = 0;
+	while (i < 31) {
+		if (users[user_id]->not_avail[i]==pos)
+			return 1;
+		i++;
+	}
 	return 0;
 }
 
 int is_ok(int matrix[ROWS][COLS],int row, int col) {
 	int last = matrix[row][col];
-	//TODO: check if avail
-	int limit = 3;
+	int limit = 5;
 	//TODO: check right limit input
+	if (isnt_avail(row,col,last))
+		return 0;
 	if (is_dupl(matrix,row,col,last))
 		return 0;
 	if (count_num(matrix, row, col, last) > limit)
