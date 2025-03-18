@@ -4,6 +4,7 @@
 #define ROWS 4
 #define COLS 4
 #define TOTAL 10
+//TODO: handle error input of TOTAL
 //TODO: handle TOTAL > 10
 
 void write_sol(int matrix[ROWS][COLS]) {
@@ -50,13 +51,14 @@ int count_num(int matrix[ROWS][COLS],int row, int col, int n) {
 		}
 		i++;
 	}
+	return 0;
 }
-
 
 int is_ok(int matrix[ROWS][COLS],int row, int col) {
 	int last = matrix[row][col];
-	//check if avail
-	int limit = 1;
+	//TODO: check if avail
+	int limit = 3;
+	//TODO: check right limit input
 	if (is_dupl(matrix,row,col,last))
 		return 0;
 	if (count_num(matrix, row, col, last) > limit)
@@ -86,5 +88,6 @@ int main(void) {
 		write_sol(matrix);
 	else
 		printf("No solution");
+	//TODO: do own MACROS for error messages
 	return 0;
 }
