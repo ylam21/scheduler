@@ -1,5 +1,5 @@
 CFLAGS := -Wall -Wextra -Werror
-CFILES := main.c config.c
+CFILES := main.c solve.c write.c users.c
 all: $(CFILES)
 	gcc $(CFLAGS) $(CFILES) -o a.out
 

@@ -4,9 +4,6 @@
 
 #define ROWS 4
 #define COLS 4
-#define TOTAL 9
-//TODO: handle error input of TOTAL
-//TODO: handle TOTAL > 10
 
 typedef struct {
 	int id;
@@ -24,5 +21,10 @@ extern user user5;
 extern user user6;
 extern user user7;
 extern user user8;
+extern user user9;
 extern user *users[];
+#define TOTAL 10
+//TODO: handle error input of TOTAL
+//TODO: handle TOTAL > 10
+
 #endif
