@@ -47,14 +47,13 @@ int isnt_avail(int row, int col, int user_id) {
 
 int is_ok(int matrix[ROWS][COLS],int row, int col) {
 	int last = matrix[row][col];
-	int limit = 8;
 	//TODO: check right limit input
 	//TODO: check individual limit
 	if (isnt_avail(row,col,last))
 		return 0;
 	if (is_dupl(matrix,row,col,last))
 		return 0;
-	if (count_num(matrix, row, col, last) > limit)
+	if (count_num(matrix, row, col, last) > LIMIT)
 		return 0;
 	return 1;
 }

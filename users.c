@@ -1,6 +1,6 @@
 #include "config.h"
 
-user user0 = {0,"Matej",{1,5},7};
+user user0 = {0,"Matej",{0},7};
 user user1 = {1,"Dasa", {0},7};
 user user2 = {2,"Katerina", {0},7};
 user user3 = {3,"Nada", {0},7};
