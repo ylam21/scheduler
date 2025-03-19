@@ -1,4 +1,3 @@
-
 #ifndef CONFIG_H
 #define CONFIG_H
 
@@ -24,7 +23,7 @@ extern user user7;
 extern user user8;
 extern user user9;
 extern user *users[];
-#define TOTAL 10
+#define NUM_USERS 10
 //TODO: handle error input of TOTAL
 //TODO: handle TOTAL > 10
 

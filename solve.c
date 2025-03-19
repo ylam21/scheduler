@@ -1,5 +1,6 @@
-#include <stdlib.h>
 #include "config.h"
+
+int get_random_user(void);
 
 int is_dupl(int matrix[ROWS][COLS], int row, int col, int n) {
 	int i = 0;
@@ -30,9 +31,7 @@ int count_num(int matrix[ROWS][COLS],int row, int col, int n) {
 }
 
 int get_pos(int row, int col) {
-	int mod_row = row + 1;
-	int mod_col = col + 1;
-	return ((mod_row * COLS) - (COLS - mod_col));
+	return (((row + 1) * COLS) - (COLS - (col + 1)));
 }
 
 int isnt_avail(int row, int col, int user_id) {
@@ -57,10 +56,6 @@ int is_ok(int matrix[ROWS][COLS],int row, int col) {
 	if (count_num(matrix, row, col, last) > LIMIT)
 		return 0;
 	return 1;
-}
-
-int get_random_user(void) {
-	return rand() % 10;
 }
 
 int solve(int matrix[ROWS][COLS],int row, int col) {
