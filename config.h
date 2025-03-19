@@ -2,9 +2,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define ROWS 31
-#define COLS 2
-#define LIMIT 7
+#define ROWS 4
+#define COLS 4
+#define LIMIT 2
 
 typedef struct {
 	int id;

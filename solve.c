@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "config.h"
 
 int is_dupl(int matrix[ROWS][COLS], int row, int col, int n) {
@@ -18,7 +19,7 @@ int count_num(int matrix[ROWS][COLS],int row, int col, int n) {
 		j = 0;
 		while (j < COLS) {
 			if (n == matrix[i][j])
-			count++;
+				count++;
 			if (i == row && j == col)
 				return count;
 			j++;
@@ -58,18 +59,19 @@ int is_ok(int matrix[ROWS][COLS],int row, int col) {
 	return 1;
 }
 
+int get_random_user(void) {
+	return rand() % 10;
+}
+
 int solve(int matrix[ROWS][COLS],int row, int col) {
 	if (row == ROWS)
 		return 1;
-	int i = 0;
-	while (i < TOTAL) {
-		matrix[row][col] = i;
+	while (1) {
+		matrix[row][col] = get_random_user();
 		if (is_ok(matrix, row, col)) {
 			if (solve(matrix,row + (col == COLS - 1),(col + 1) % COLS))
 				return 1;
 		}
-		else
-			i++;
 	}
 	return 0;
 }
