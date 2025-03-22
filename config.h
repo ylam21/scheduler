@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define ROWS 30
+#define ROWS 31
 #define COLS 2
 #define LIMIT 10
 
@@ -25,7 +25,5 @@ extern user user8;
 extern user user9;
 extern user *users[];
 #define NUM_USERS 10
-//TODO: handle error input of TOTAL
-//TODO: handle TOTAL > 10
 
 #endif

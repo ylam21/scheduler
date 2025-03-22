@@ -1,4 +1,5 @@
 #include "config.h"
+#include <stdio.h>
 
 int get_random_user(void);
 
@@ -34,7 +35,22 @@ int get_pos(int row, int col) {
 	return (((row + 1) * COLS) - (COLS - (col + 1)));
 }
 
-int isnt_avail(int row, int col, int user_id) {
+int check_avail(int row, int col, int user_id) {
+	if (users[user_id]->avail[0]==0)
+		return 0;
+	int pos = get_pos(row,col);
+	int i = 0;
+	while (i < 31) {
+		if (users[user_id]->avail[i]==pos)
+			return 0;
+		i++;
+	}
+	return 1;
+}
+
+int check_not_avail(int row, int col, int user_id) {
+	if (users[user_id]->not_avail[0]==0)
+		return 0;
 	int pos = get_pos(row,col);
 	int i = 0;
 	while (i < 31) {
@@ -46,14 +62,16 @@ int isnt_avail(int row, int col, int user_id) {
 }
 
 int is_ok(int matrix[ROWS][COLS],int row, int col) {
-	int last = matrix[row][col];
-	//TODO: check right limit input
+	int last_id = matrix[row][col];
 	//TODO: check individual limit
-	if (isnt_avail(row,col,last))
+	//TODO: fill cell with "EMPTY" str if nobody can work
+	if (check_avail(row,col,last_id))
 		return 0;
-	if (is_dupl(matrix,row,col,last))
+	if (check_not_avail(row,col,last_id))
 		return 0;
-	if (count_num(matrix, row, col, last) > LIMIT)
+	if (is_dupl(matrix,row,col,last_id))
+		return 0;
+	if (count_num(matrix, row, col, last_id) > LIMIT)
 		return 0;
 	return 1;
 }
