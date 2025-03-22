@@ -1,13 +1,14 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define ROWS 4
-#define COLS 4
-#define LIMIT 2
+#define ROWS 30
+#define COLS 2
+#define LIMIT 10
 
 typedef struct {
 	int id;
 	char *name;
+	int avail[31];
 	int not_avail[31];
 	int limit;
 } user;

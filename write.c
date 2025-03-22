@@ -1,5 +1,51 @@
 #include <unistd.h>
 #include "config.h"
+#include <stdio.h>
+
+int get_len(char *str) {
+	int len = 0;
+	while (str[len] != '\0')
+		len++;
+	return len;
+}
+
+int get_longest(void) {
+	int i = 0;
+	int longest = get_len(users[0]->name);
+	int curr;
+	while (users[i]) {
+		curr = get_len(users[i]->name);
+		if (curr > longest)
+			longest = curr;
+		i++;
+	}
+	return longest;
+}
+
+
+void write_space(int nb) {
+	int i = 0;
+	while (i < nb) {
+		write(1," ",1);
+		i++;
+	}
+	return;
+}
+
+void write_name(char *str) {
+	int i = 0;
+	while (str[i]) {
+		write(1,&str[i],1);
+		i++;
+	}
+	int num_space = get_longest() - get_len(str);
+	i = 0;
+	while (i < num_space) {
+		write(1," ",1);
+		i++;
+	}
+	return;
+}
 
 void write_num(int num) {
 	char tmp;
@@ -18,21 +64,19 @@ void write_day(int day) {
 }
 
 void write_sol(int matrix[ROWS][COLS]) {
-	int i = 0;
-	int j;
-	char tmp;
-	while (i < ROWS) {
-		j = 0;
-		write_day(i);
-		while (j < COLS) {
-			tmp = matrix[i][j] + '0';
-			write(1,&tmp,1);
-			if (j < COLS - 1)
-				write(1," ",1);
-			j++;
+		int i = 0;
+		int j;
+		while (i < ROWS) {
+			j = 0;
+			write_day(i);
+			while (j < COLS) {
+				write_name(users[matrix[i][j]]->name);
+				if (j < COLS - 1)
+					write(1," ",1);
+				j++;
+			}
+			write(1,"\n",1);
+			i++;
 		}
-		write(1,"\n",1);
-		i++;
+		return;
 	}
-	return;
-}
