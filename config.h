@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define ROWS 31
+#define ROWS 30
 #define COLS 2
 #define LIMIT 10
 
