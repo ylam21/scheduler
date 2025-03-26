@@ -1,7 +1,7 @@
 #include "config.h"
 
 int is_in_conflict(user *worker) {
-	int i = 0;
+	int i = 1;
 	while (i < 31) {
 		if (worker->avail[i] == worker->not_avail[i] && worker->avail[i] != 0)
 			return 1;

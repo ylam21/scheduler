@@ -9,8 +9,7 @@ typedef struct {
 	int id;
 	char *name;
 	int avail[31];
-	int not_avail[31];
-	int limit;
+	int limits[3];
 } user;
 
 extern user user0;

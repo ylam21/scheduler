@@ -9,7 +9,6 @@ int check_error(void);
 
 int main(void) {
 	srand(time(NULL));
-
 	if (check_error())
 		return printf("Wrong input");
 	int matrix[ROWS][COLS] = {0};
