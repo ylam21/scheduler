@@ -5,7 +5,7 @@ config users in:
  - users.c
 
 config file:
-- config.h
+ - config.h
 
 ```
 git clone git@github.com:ylam21/scheduler.git scheduler

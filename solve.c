@@ -4,23 +4,23 @@
 
 int is_dupl(int matrix[ROWS][COLS], int row, int col, int n);
 
-int count_num(int matrix[ROWS][COLS],int row, int col, int n) {
-	int i = 0;
-	int j;
-	int count = 0;
-	while (i <= row) {
-		j = 0;
-		while (j < COLS) {
-			if (n == matrix[i][j])
-				count++;
-			if (i == row && j == col)
-				return count;
-			j++;
-		}
-		i++;
-	}
-	return count;
-}
+// int count_num(int matrix[ROWS][COLS],int row, int col, int n) {
+// 	int i = 0;
+// 	int j;
+// 	int count = 0;
+// 	while (i <= row) {
+// 		j = 0;
+// 		while (j < COLS) {
+// 			if (n == matrix[i][j])
+// 				count++;
+// 			if (i == row && j == col)
+// 				return count;
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	return count;
+// }
 
 int get_pos(int row, int col) {
 	// check if there is not better sol
@@ -81,12 +81,12 @@ int *remove_int(int *arr, int remove, int *size) {
 	return arr;
 }
 
-int assign_user(int matrix[ROWS][COLS], int row, int col) {
-	int chosen = 0;
+int find_user(int matrix[ROWS][COLS],int row,int col,int match) {
 	int size = 0;
 	int *arr;
+	int chosen = 0;
 
-	arr = get_match(row,2,&size); //assign priority first
+	arr = get_match(row,match,&size);
 	while (size > 0) {
 		chosen = arr[rand() % size];
 		if (is_dupl(matrix,row,col,chosen)) {
@@ -101,24 +101,14 @@ int assign_user(int matrix[ROWS][COLS], int row, int col) {
 	}
 	if (arr)
 		free(arr);
+	return chosen; //If nobody can work chosen = 0;
+}
 
-	arr = get_match(row,1,&size); //assign avail users if there is no prior. users
-	while (size) {
-		chosen = arr[rand() % size];
-		if (is_dupl(matrix,row,col,chosen)) {
-			arr = remove_int(arr,chosen,&size);
-			if (!arr)
-				break;
-		}
-		else {
-			free(arr);
-			return chosen;
-		}
-	}
-	if (arr)
-		free(arr);
-
-	return 0; //no one can work;
+int assign_user(int matrix[ROWS][COLS], int row, int col) {
+	int chosen = find_user(matrix,row,col,2); //Look if SB has priority (number 2)
+	if (!chosen)
+		chosen = find_user(matrix,row,col,1); //If nobody has priority then look if somebody is available (number 1)
+	return chosen;
 }
 
 void solve(int matrix[ROWS][COLS]) {
