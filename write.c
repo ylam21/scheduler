@@ -69,6 +69,20 @@ void write_day(int day) {
 	return;
 }
 
+char *get_name(int nb) {
+	char *empty = "EMPTY";
+	if (nb == 0)
+		return empty;
+
+	for (int i = 0;i<NUM_USERS;i++) {
+		if (users[i]->id == nb) {
+			return users[i]->name;
+		}
+	}
+
+	return 0;
+}
+
 void write_sol(int matrix[ROWS][COLS]) {
 		int i = 0;
 		int j;
@@ -76,7 +90,7 @@ void write_sol(int matrix[ROWS][COLS]) {
 			j = 0;
 			write_day(i);
 			while (j < COLS) {
-				write_name(users[matrix[i][j]]->name);
+				write_name(get_name(matrix[i][j]));
 				if (j < COLS - 1)
 					write(1," ",1);
 				j++;

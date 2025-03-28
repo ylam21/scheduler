@@ -3,18 +3,19 @@
 #include <time.h>
 #include "config.h"
 
-int solve(int matrix[ROWS][COLS],int row, int col);
-void write_sol(int matrix[ROWS][COLS]);
 int check_error(void);
+void solve(int matrix[ROWS][COLS]);
+void write_sol(int matrix[ROWS][COLS]);
 
 int main(void) {
 	srand(time(NULL));
-	if (check_error())
-		return printf("Wrong input");
+
+	if (check_error()) {
+		printf("Wrong input");
+		return 1;
+	}
 	int matrix[ROWS][COLS] = {0};
-	if (solve(matrix,0,0))
-		write_sol(matrix);
-	else
-		printf("No solution");
+	solve(matrix);
+	write_sol(matrix);
 	return 0;
 }
