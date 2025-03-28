@@ -99,7 +99,8 @@ int assign_user(int matrix[ROWS][COLS], int row, int col) {
 			return chosen;
 		}
 	}
-	free(arr);
+	if (arr)
+		free(arr);
 
 	arr = get_match(row,1,&size); //assign avail users if there is no prior. users
 	while (size) {
@@ -115,7 +116,7 @@ int assign_user(int matrix[ROWS][COLS], int row, int col) {
 		}
 	}
 	if (arr)
-	free(arr);
+		free(arr);
 
 	return 0; //no one can work;
 }
