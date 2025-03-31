@@ -17,12 +17,12 @@ scheduler/config/users.c
 Availability Values:
 - 0 = Not available
 - 1 = Available
-- 2 = Available with priority
+- 2 = Available with priority\
 Work Limits:
 - index 0 = Minimum workdays
 - index 1 = Maximum workdays
 - index 2 = Exact number of workdays
-- value '-1' = No restriction
+- value '-1' = No restriction\
 Set the maximum consecutive workdays in:
 ```
 scheduler/include/user.h
