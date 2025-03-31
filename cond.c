@@ -1,6 +1,29 @@
 #include "config.h"
 #include <stdio.h>
 
+int is_in_row(int matrix[ROWS][COLS], int row, int user_id) {
+	for (int i=0;i<COLS;i++) {
+		if (matrix[row][i] == user_id)
+			return 1;
+	}
+	return 0;
+}
+
+int would_be_overworked(int matrix[ROWS][COLS], int row, int user_id, int depth) {
+	int streak = 0;
+	for (int i=1;i<=depth;i++) {
+		if (is_in_row(matrix,row - i,user_id)) {
+			streak++;
+			if (streak >= depth)
+				return 1;
+		}
+		else
+			streak = 0;
+	}
+
+	return 0;
+}
+
 int count_num(int matrix[ROWS][COLS], int row, int col, int user_id) {
 	int i = 0;
 	int j;
@@ -50,6 +73,8 @@ int chosen_isnt_ok(int matrix[ROWS][COLS],int row, int col, int user_id) {
 	if (is_dupl(matrix,row,col,user_id))
 		return 1;
 	if (check_limits(matrix,row,col,user_id))
+		return 1;
+	if (would_be_overworked(matrix,row,user_id,DEPTH))
 		return 1;
 	return 0;
 }
