@@ -2,30 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int is_dupl(int matrix[ROWS][COLS], int row, int col, int n);
-
-// int count_num(int matrix[ROWS][COLS],int row, int col, int n) {
-// 	int i = 0;
-// 	int j;
-// 	int count = 0;
-// 	while (i <= row) {
-// 		j = 0;
-// 		while (j < COLS) {
-// 			if (n == matrix[i][j])
-// 				count++;
-// 			if (i == row && j == col)
-// 				return count;
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return count;
-// }
-
-int get_pos(int row, int col) {
-	// check if there is not better sol
-	return (((row + 1) * COLS) - (COLS - (col + 1))) - 1;
-}
+//from cond.c
+int chosen_isnt_ok(int matrix[ROWS][COLS],int row, int col, int user_id);
 
 int *get_match(int day, int match, int *size) {
 	int *arr = malloc(sizeof(int) * NUM_USERS);
@@ -89,7 +67,7 @@ int find_user(int matrix[ROWS][COLS],int row,int col,int match) {
 	arr = get_match(row,match,&size);
 	while (size > 0) {
 		chosen = arr[rand() % size];
-		if (is_dupl(matrix,row,col,chosen)) {
+		if (chosen_isnt_ok(matrix,row,col,chosen)) {
 			arr = remove_int(arr,chosen,&size);
 			if (!arr)
 				break;

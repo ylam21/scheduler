@@ -1,14 +1,6 @@
 #include <unistd.h>
 #include "config.h"
 
-int get_len(char *str);
-int get_longest(void);
-void write_space(int nb);
-void write_num(int num);
-void write_day(int day);
-void write_name(char *str);
-void write_sol(int matrix[ROWS][COLS]);
-
 int get_len(char *str) {
 	int len = 0;
 	while (str[len] != '\0')

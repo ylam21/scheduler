@@ -8,13 +8,10 @@ void solve(int matrix[ROWS][COLS]);
 void write_sol(int matrix[ROWS][COLS]);
 
 int main(void) {
-	srand(time(NULL));
-
-	if (check_error()) {
-		printf("Wrong input");
-		return 1;
-	}
-	int matrix[ROWS][COLS] = {0};
+	srand(time(NULL)); //seed randomness
+	if (check_error())
+		return 0;
+	int matrix[ROWS][COLS] = {0}; //init matrix;
 	solve(matrix);
 	write_sol(matrix);
 	return 0;
