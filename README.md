@@ -1,5 +1,5 @@
 # scheduler
-Scheduler is a tool made for scheduling workdays for employees.
+Scheduler is a tool for generating work schedules based on employee availability and work limits.
 
 ## Installation
 Clone the repository:
