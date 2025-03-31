@@ -72,7 +72,6 @@ char *get_name(int nb) {
 			return users[i]->name;
 		}
 	}
-
 	return 0;
 }
 

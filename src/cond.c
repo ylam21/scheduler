@@ -21,7 +21,6 @@ int would_be_overworked(int matrix[ROWS][COLS], int row, int user_id, int depth)
 		else
 			streak = 0;
 	}
-
 	return 0;
 }
 
