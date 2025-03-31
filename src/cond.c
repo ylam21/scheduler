@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "month.h"
-#include "user.h"
+#include "../include/month.h"
+#include "../include/user.h"
 
 int is_in_row(int matrix[ROWS][COLS], int row, int user_id) {
 	for (int i=0;i<COLS;i++) {

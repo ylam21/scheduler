@@ -1,7 +1,7 @@
 #ifndef USER_H
 #define USER_H
 
-#define DEPTH 2 // number of acceptable amount of days person can work in a row.
+#define DEPTH 1 // number of acceptable amount of days person can work in a row.
 
 typedef struct {
 	int id;

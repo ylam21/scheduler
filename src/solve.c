@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "month.h"
-#include "user.h"
+#include "../include/month.h"
+#include "../include/user.h"
 
 //from cond.c
 int chosen_isnt_ok(int matrix[ROWS][COLS],int row, int col, int user_id);
@@ -70,6 +70,7 @@ int find_user(int matrix[ROWS][COLS],int row,int col,int match) {
 		chosen = arr[rand() % size];
 		if (chosen_isnt_ok(matrix,row,col,chosen)) {
 			arr = remove_int(arr,chosen,&size);
+			chosen = 0;
 			if (!arr)
 				break;
 		}

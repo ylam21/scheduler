@@ -1,6 +1,6 @@
 #include <unistd.h>
-#include "month.h"
-#include "user.h"
+#include "../include/month.h"
+#include "../include/user.h"
 
 int get_len(char *str) {
 	int len = 0;
@@ -78,6 +78,7 @@ char *get_name(int nb) {
 void write_sol(int matrix[ROWS][COLS]) {
 		int i = 0;
 		int j;
+		write(1,"Result:\n",8);
 		while (i < ROWS) {
 			j = 0;
 			write_day(i);

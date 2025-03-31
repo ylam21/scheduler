@@ -1,4 +1,4 @@
-#include "month.h"
+#include "../include/month.h"
 
 int input_isnt_ok(int row, int col) {
 	if (row < 1 || col < 1)
