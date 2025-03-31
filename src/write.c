@@ -1,5 +1,6 @@
 #include <unistd.h>
-#include "config.h"
+#include "month.h"
+#include "user.h"
 
 int get_len(char *str) {
 	int len = 0;

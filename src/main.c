@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "config.h"
+#include "month.h"
 
 int check_error(void);
 void solve(int matrix[ROWS][COLS]);

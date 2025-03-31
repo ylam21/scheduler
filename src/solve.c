@@ -1,6 +1,7 @@
-#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "month.h"
+#include "user.h"
 
 //from cond.c
 int chosen_isnt_ok(int matrix[ROWS][COLS],int row, int col, int user_id);

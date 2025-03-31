@@ -4,8 +4,8 @@ table-wizard recall
 config users in:
  - users.c
 
-config file:
- - config.h
+set days in month in file:
+ - setup.h
 
 ```
 git clone git@github.com:ylam21/scheduler.git scheduler
