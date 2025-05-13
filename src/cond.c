@@ -59,12 +59,12 @@ int check_limits(int matrix[ROWS][COLS],int row, int col, int user_id) {
 	int target_exact = users[user_id - 1]->limits[2];
 
 	if (row == ROWS - 1 && col == COLS - 1) {
-		if ((count < target_min) && (target_min != -1)) //check MIN
+		if ((count < target_min) && (target_min != -1)) // Check for MIN
 			return 1;
 	}
-	if (count > target_max && target_max != -1) //check MAX
+	if (count > target_max && target_max != -1) // Check for MAX
 		return 1;
-	if (count > target_exact && target_exact != -1) //check EXACT
+	if (count > target_exact && target_exact != -1) // Check for EXACT
 		return 1;
 	return 0;
 }

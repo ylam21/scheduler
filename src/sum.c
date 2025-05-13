@@ -2,7 +2,7 @@
 #include "../include/user.h"
 #include "../include/month.h"
 
-int get_count(int id, int matrix[ROWS][COLS]) {
+int get_id_count(int id, int matrix[ROWS][COLS]) {
 	int count = 0;
 	for (int i=0;i<ROWS;i++) {
 		for (int j=0;j<COLS;j++) {
@@ -46,9 +46,12 @@ void print_sum(int matrix[ROWS][COLS]) {
 	printf("Count:\n");
 	for (int i=0;i<NUM_USERS;i++) {
 		name = get_name1(i);
-		count = get_count(i,matrix);
+		count = get_id_count(i,matrix);
 		user_max = get_user_max(i);
-		fraction = (float)count/(float)user_max*100;
+		if (user_max == 0)
+			fraction = 100;
+		else
+			fraction = (float)count/(float)user_max*100;
 		if (i == 0)
 			printf("%s: %d\n",name,count);
 		else {
