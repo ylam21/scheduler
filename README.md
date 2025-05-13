@@ -2,7 +2,7 @@
 Scheduler is a tool for generating work schedules based on employee availability and work limits.
 
 ## Worker Assignment Algorithm
-![User Assignment Algorithm](assets/algorithm.png)
+![User Assignment Algorithm](./images/algorithm.jpg)
 
 ## Installation
 Clone the repository:
