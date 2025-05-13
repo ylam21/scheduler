@@ -35,5 +35,5 @@ scheduler/include/user.h
 ## Usage
 Compile and run:
 ```
-make && ./bin
+make && ./print
 ```
