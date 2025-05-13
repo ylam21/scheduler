@@ -3,11 +3,10 @@
 #include "../include/month.h"
 #include "../include/user.h"
 
-// Utils from "src/cond.c"
+// Utility functions
+int get_id_count(int user_id, int matrix[ROWS][COLS]);
+int get_user_max(int user_id);
 int chosen_isnt_ok(int matrix[ROWS][COLS],int row, int col, int user_id);
-// Utils from "src/sum.c"
-int get_id_count(int id, int matrix[ROWS][COLS]);
-int get_user_max(int id);
 
 int *get_match(int day, int match, int *size) {
 	int *arr = malloc(sizeof(int) * NUM_USERS);

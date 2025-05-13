@@ -1,20 +1,18 @@
+#include <stdio.h>
 #include <unistd.h>
 #include "../include/month.h"
 #include "../include/user.h"
 
-int get_len(char *str) {
-	int len = 0;
-	while (str[len] != '\0')
-		len++;
-	return len;
-}
+// Utility functions
+int fn_strlen(char *str);
+char *get_user_name(int user_id);
 
 int get_longest(void) {
 	int i = 0;
-	int longest = get_len(users[0]->name);
+	int longest = fn_strlen(users[0]->name);
 	int curr;
 	while (users[i]) {
-		curr = get_len(users[i]->name);
+		curr = fn_strlen(users[i]->name);
 		if (curr > longest)
 			longest = curr;
 		i++;
@@ -37,7 +35,7 @@ void write_name(char *str) {
 		write(1,&str[i],1);
 		i++;
 	}
-	int num_space = get_longest() - get_len(str);
+	int num_space = get_longest() - fn_strlen(str);
 	i = 0;
 	while (i < num_space) {
 		write(1," ",1);
@@ -62,28 +60,15 @@ void write_day(int day) {
 	return;
 }
 
-char *get_name(int nb) {
-	char *empty = "EMPTY";
-	if (nb == 0)
-		return empty;
-
-	for (int i = 0;i<NUM_USERS;i++) {
-		if (users[i]->id == nb) {
-			return users[i]->name;
-		}
-	}
-	return 0;
-}
-
-void write_sol(int matrix[ROWS][COLS]) {
+void print_matrix(int matrix[ROWS][COLS]) {
 		int i = 0;
 		int j;
-		write(1,"Result:\n",8);
+		printf("\nResult:\n");
 		while (i < ROWS) {
 			j = 0;
 			write_day(i);
 			while (j < COLS) {
-				write_name(get_name(matrix[i][j]));
+				write_name(get_user_name(matrix[i][j]));
 				if (j < COLS - 1)
 					write(1," ",1);
 				j++;

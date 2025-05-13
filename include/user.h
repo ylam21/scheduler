@@ -20,7 +20,8 @@ extern user user6;
 extern user user7;
 extern user user8;
 extern user user9;
+extern user user10;
 extern user *users[];
-#define NUM_USERS 10
+#define NUM_USERS 11
 
 #endif
