@@ -14,9 +14,7 @@ cd scheduler
 ```
 ## Configuration
 Set employee names, their availability and limits in:
-```
-scheduler/config/users.c
-```
+`./config/users.c`
 Availability Values:
 - 0 = Not available
 - 1 = Available
@@ -29,11 +27,9 @@ Work Limits:
 - value '-1' = No restriction
 
 Set the maximum consecutive workdays in:
-```
-scheduler/include/user.h
-```
+`./include/user.h`
 ## Usage
 Compile and run:
 ```
-make && ./print
+make && ./bin
 ```
