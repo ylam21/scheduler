@@ -18,6 +18,10 @@ $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+
+run: clean $(BIN)
+	./$(BIN)
+
 clean:
 	rm -rf $(OBJ)
 

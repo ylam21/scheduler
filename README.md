@@ -25,5 +25,5 @@ Set employee names, their availability and limits in: `./config/users.c`<br>
 ## Usage
 Compile and run:
 ```
-make && ./bin
+make run
 ```
