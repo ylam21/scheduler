@@ -53,10 +53,10 @@ int is_dupl(int matrix[ROWS][COLS], int row, int col, int n) {
 }
 
 int check_limits(int matrix[ROWS][COLS],int row, int col, int user_id) {
-	int count = count_num(matrix,row,col,user_id) + 1;
-	int target_min = users[user_id - 1]->limits[0];
-	int target_max = users[user_id - 1]->limits[1];
-	int target_exact = users[user_id - 1]->limits[2];
+	int count = count_num(matrix,row,col,user_id) + 1; // '+1' as the user_id was chosen
+	int target_min = users[user_id]->limits[0];
+	int target_max = users[user_id]->limits[1];
+	int target_exact = users[user_id]->limits[2];
 
 	if (row == ROWS - 1 && col == COLS - 1) {
 		if ((count < target_min) && (target_min != -1)) // Check for MIN
@@ -69,7 +69,7 @@ int check_limits(int matrix[ROWS][COLS],int row, int col, int user_id) {
 	return 0;
 }
 
-int chosen_isnt_ok(int matrix[ROWS][COLS],int row, int col, int user_id) {
+int chosen_id_isnt_ok(int matrix[ROWS][COLS],int row, int col, int user_id) {
 	if (is_dupl(matrix,row,col,user_id))
 		return 1;
 	if (check_limits(matrix,row,col,user_id))

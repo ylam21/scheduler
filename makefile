@@ -1,18 +1,24 @@
-CC := gcc
-CFLAGS := -Wall -Wextra -Werror -Iinclude
-
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -Iinclude
 SRC = $(wildcard src/*.c) config/users.c
-OBJECTS := $(SRC:.c=.o)
-
-BIN = print
+OBJ_DIR = build
+OBJ = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
+BIN = bin
 
 all: $(BIN)
 
-$(BIN): $(OBJECTS)
-	$(CC) -o $@ $^
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-%.o : %.c
+$(BIN): $(OBJ)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(BIN) $(OBJECTS)
+	rm -rf $(OBJ)
+
+.PHONY = all clean

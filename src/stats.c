@@ -5,17 +5,7 @@
 // Utility functions
 char *get_user_name(int user_id);
 int get_user_max(int user_id);
-
-int get_id_count(int user_id, int matrix[ROWS][COLS]) {
-	int count = 0;
-	for (int i=0;i<ROWS;i++) {
-		for (int j=0;j<COLS;j++) {
-			if (user_id == matrix[i][j])
-				count++;
-		}
-	}
-	return count;
-}
+int get_id_count(int user_id, int matrix[ROWS][COLS]);
 
 void print_stats(int matrix[ROWS][COLS]) {
 	char *name;
@@ -31,7 +21,7 @@ void print_stats(int matrix[ROWS][COLS]) {
 			fraction = 100;
 		else
 			fraction = (float)count/(float)user_max*100;
-		if (id == 0)
+		if (id == -1)
 			printf("%s: %d\n",name,count);
 		else {
 			fract_aggr += fraction;
