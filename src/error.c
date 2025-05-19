@@ -14,10 +14,18 @@ int check_config(void) {
 		for (int j=0;j<ROWS;j++) {
 			int day = users[i]->avail[j];
 			if ((day != 0)&&(day != 1)&&(day != 2)) {
-				printf("Error: user with id:%d has wrong input\n",users[i]->id);
+				printf("Error: User (id:%d) has wrong input\n",users[i]->id);
 				return 1;
 			}
 
+		}
+		//check if int *limits has the righ input
+		for (int k=0;k<3;k++) {
+			int value = users[i]->limits[k];
+			if (value < -1) {
+				printf("Error: User (id:%d) has wrong input\n",users[i]->id);
+				return 1;
+			}
 		}
 	}
 	return 0;
