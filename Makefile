@@ -10,19 +10,19 @@ CFLAGS = -Wall -Wextra -Werror -Iinclude
 
 RM = rm -rf
 
-SRC = $(wildcard src/*.c) config/users.c
+SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRC))
 
 all: $(NAME)
 
-$(BUILD_DIR_DIR):
+$(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 $(NAME): $(OBJ) | $(BUILD_DIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+$(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 

@@ -1,18 +1,11 @@
-#include <stdio.h>
-#include <unistd.h>
-#include "../include/month.h"
-#include "../include/user.h"
+#include "../includes/scheduler.h"
 
-// Utility functions
-int fn_strlen(char *str);
-char *get_user_name(int user_id);
-
-int get_longest(void) {
+int get_longest(t_worker workers[WORKER_COUNT]) {
 	int i = 0;
-	int longest = fn_strlen(users[0]->name);
+	int longest = strlen(workers[0].name);
 	int curr;
-	while (users[i]) {
-		curr = fn_strlen(users[i]->name);
+	while (i < WORKER_COUNT) {
+		curr = strlen(workers[i].name);
 		if (curr > longest)
 			longest = curr;
 		i++;
@@ -29,13 +22,13 @@ void write_space(int nb) {
 	return;
 }
 
-void write_name(char *str) {
+void write_name(t_worker workers[WORKER_COUNT], char *str) {
 	int i = 0;
 	while (str[i]) {
 		write(1,&str[i],1);
 		i++;
 	}
-	int num_space = get_longest() - fn_strlen(str);
+	int num_space = get_longest(workers) - strlen(str);
 	i = 0;
 	while (i < num_space) {
 		write(1," ",1);
@@ -60,7 +53,7 @@ void write_day(int day) {
 	return;
 }
 
-void print_matrix(int matrix[ROWS][COLS]) {
+void print_matrix(t_worker workers[WORKER_COUNT], int matrix[ROWS][COLS]) {
 		int i = 0;
 		int j;
 		printf("\nResult:\n");
@@ -68,7 +61,7 @@ void print_matrix(int matrix[ROWS][COLS]) {
 			j = 0;
 			write_day(i);
 			while (j < COLS) {
-				write_name(get_user_name(matrix[i][j]));
+				write_name(workers, get_worker_name(workers, matrix[i][j]));
 				if (j < COLS - 1)
 					write(1," ",1);
 				j++;

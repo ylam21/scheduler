@@ -1,25 +1,16 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "../include/month.h"
-#include "../include/user.h"
+#include "../includes/scheduler.h"
 
-// Utility functions
-void print_array(int matrix[ROWS][COLS],int *arr, int size);
-int get_id_count(int user_id, int matrix[ROWS][COLS]);
-int get_user_max(int user_id);
-int chosen_id_isnt_ok(int matrix[ROWS][COLS],int row, int col, int user_id);
-
-int *get_match(int day, int match, int *size) {
-	int *arr = malloc(sizeof(int) * NUM_USERS);
+int *get_match(t_worker workers[WORKER_COUNT], int day, int match, int *size) {
+	int *arr = malloc(sizeof(int) * WORKER_COUNT);
 	if (!arr) {
 		printf("Allocation failed 0\n");
 		return NULL;
 	}
 
 	int count = 0;
-	for (int i = 0; i < NUM_USERS; i++) {
-		if (users[i]->avail[day] == match)
-			arr[count++] = users[i]->id;
+	for (int i = 0; i < WORKER_COUNT; i++) {
+		if (workers[i].avail[day] == match)
+			arr[count++] = workers[i].id;
 	}
 
 	if (!count) {
@@ -64,14 +55,14 @@ int *remove_int(int *arr, int remove, int *size) {
 	return arr;
 }
 
-int *fract_sort(int matrix[ROWS][COLS], int *arr,int size) {
+int *fract_sort(t_worker workers[WORKER_COUNT], int matrix[ROWS][COLS], int *arr,int size) {
 	int tmp;
 	float curr, next;
 	// Bubble sort from lowest to highest
 	for (int i=0;i<size-1;i++) {
 		for (int j=0;j<size-1-i;j++) {
-			 curr = (float)get_id_count(arr[j],matrix)/get_user_max(arr[j]); // "get_id_count" irritates thought whole matrix - not necessary
-			 next = (float)get_id_count(arr[j+1],matrix)/get_user_max(arr[j+1]);
+			 curr = (float)get_id_count(arr[j],matrix)/get_worker_max(workers, arr[j]); // "get_id_count" irritates thought whole matrix - not necessary
+			 next = (float)get_id_count(arr[j+1],matrix)/get_worker_max(workers, arr[j+1]);
 			 if (curr > next) {
 				tmp = arr[j];
 				arr[j] = arr[j+1];
@@ -82,12 +73,12 @@ int *fract_sort(int matrix[ROWS][COLS], int *arr,int size) {
 	return arr;
 }
 
-int get_poolsize(int matrix[ROWS][COLS], int *arr, int size) {
+int get_poolsize(t_worker workers[WORKER_COUNT], int matrix[ROWS][COLS], int *arr, int size) {
 	// Compute pool_size of equally ranked users
 	int pool_size = 1;
-	float best =(float)get_id_count(arr[0],matrix)/get_user_max(arr[0]);
+	float best =(float)get_id_count(arr[0],matrix)/get_worker_max(workers, arr[0]);
 	for (int i=1;i<size;i++) {
-		float f = (float)get_id_count(arr[i],matrix)/get_user_max(arr[i]);
+		float f = (float)get_id_count(arr[i],matrix)/get_worker_max(workers, arr[i]);
 		if (f == best)
 			pool_size++;
 		else
@@ -96,30 +87,30 @@ int get_poolsize(int matrix[ROWS][COLS], int *arr, int size) {
 	return pool_size;
 }
 
-int find_user(int matrix[ROWS][COLS],int row,int col,int match) {
+int find_worker(t_worker workers[WORKER_COUNT], int matrix[ROWS][COLS], int row, int col, int match) {
 	int size = 0;
 	int chosen_id = -1; // if function return -1 nobody is chosen_id
 
 	int *arr;
-	arr = get_match(row,match,&size);
+	arr = get_match(workers,row,match,&size);
 
 	if (!size)
 		return chosen_id;
 
-	arr = fract_sort(matrix,arr,size);
+	arr = fract_sort(workers, matrix,arr,size);
 
 	if (!arr)
 		return chosen_id;
 
 	while (size > 0) {
-		int pool_size = get_poolsize(matrix,arr,size);
+		int pool_size = get_poolsize(workers, matrix,arr,size);
 		if (pool_size > 0)
 			chosen_id = arr[rand() % pool_size];
 		else {
 			printf("Dividing by zero\n");
 			return chosen_id;
 		}
-		if (chosen_id_isnt_ok(matrix,row,col,chosen_id)) {
+		if (chosen_id_isnt_ok(workers, matrix,row,col,chosen_id)) {
 			arr = remove_int(arr,chosen_id,&size);
 			chosen_id = -1;
 			if (!arr)
@@ -133,23 +124,27 @@ int find_user(int matrix[ROWS][COLS],int row,int col,int match) {
 
 	if (arr)
 		free(arr);
-		
+
 	return chosen_id;
 }
 
-int assign_user(int matrix[ROWS][COLS], int row, int col) {
+int assign_worker(t_worker workers[WORKER_COUNT], int matrix[ROWS][COLS], int row, int col) {
 	int chosen_id;
-		chosen_id = find_user(matrix,row,col,2); // Look if some user has priority (match = 2)
+
+	chosen_id = find_worker(workers, matrix,row,col,2); // Look if some user has priority (match = 2)
+
 	if (chosen_id == -1)
-		chosen_id = find_user(matrix,row,col,1); // If nobody has priority then look if somebody is available (match = 1)
+	{
+		chosen_id = find_worker(workers,matrix,row,col,1); // If nobody has priority then look if somebody is available (match = 1)
+	}
+
 	return chosen_id;
 }
 
-void solve(int matrix[ROWS][COLS]) {
+void solve(t_worker workers[WORKER_COUNT], int matrix[ROWS][COLS]) {
 	for (int i = 0; i < ROWS; i++) {
 		for (int j = 0; j < COLS; j++) {
-			matrix[i][j] = assign_user(matrix, i, j);
+			matrix[i][j] = assign_worker(workers, matrix, i, j);
 		}
 	}
-	return;
 }

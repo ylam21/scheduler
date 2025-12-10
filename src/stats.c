@@ -1,22 +1,16 @@
-#include <stdio.h>
-#include "../include/user.h"
-#include "../include/month.h"
+#include "../includes/scheduler.h"
 
-// Utility functions
-char *get_user_name(int user_id);
-int get_user_max(int user_id);
-int get_id_count(int user_id, int matrix[ROWS][COLS]);
-
-void print_stats(int matrix[ROWS][COLS]) {
+void print_stats(t_worker workers[WORKER_COUNT], int matrix[ROWS][COLS])
+{
 	printf("\nStatistics:\n");
 	char *name;
 	int count, user_max;
 	float fraction;
 	float fract_aggr = 0;
-	for (int id=-1;id<NUM_USERS;id++) {
-		name = get_user_name(id);
+	for (int id=-1;id<WORKER_COUNT;id++) {
+		name = get_worker_name(workers, id);
 		count = get_id_count(id,matrix);
-		user_max = get_user_max(id);
+		user_max = get_worker_max(workers, id);
 		if (id == -1)
 			printf("%s: %d\n",name,count);
 		else if (user_max == 0) {
@@ -29,5 +23,5 @@ void print_stats(int matrix[ROWS][COLS]) {
 		}
 		fract_aggr += fraction;
 	}
-	printf("Average: %.0f %%\n",fract_aggr/(float)NUM_USERS);
+	printf("Average: %.0f %%\n",fract_aggr/(float)WORKER_COUNT);
 }
